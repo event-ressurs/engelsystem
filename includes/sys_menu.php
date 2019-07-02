@@ -83,11 +83,11 @@ function make_navigation()
 
     $menu = [];
     $pages = [
-        'news'           => __('News'),
+        // 'news'           => __('News'),
         'user_meetings'  => __('Meetings'),
         'user_shifts'    => __('Shifts'),
         'angeltypes'     => __('Angeltypes'),
-        'user_questions' => __('Ask the Heaven'),
+        // 'user_questions' => __('Ask the Heaven'),
     ];
 
     foreach ($pages as $menu_page => $title) {
