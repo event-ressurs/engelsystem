@@ -348,7 +348,7 @@ function user_angeltype_add_controller()
     }
 
     return [
-        __('Add user to angeltype'),
+        __('Add user to usertype'),
         UserAngelType_add_view($angeltype, $users_source, $user_source->id)
     ];
 }
