@@ -139,7 +139,7 @@ function UserAngelType_add_view($angeltype, $users_source, $user_id)
         $users[$user_source->id] = User_Nick_render($user_source);
     }
 
-    return page_with_title(__('Add user to angeltype'), [
+    return page_with_title(__('Add user to usertype'), [
         msg(),
         buttons([
             button(
