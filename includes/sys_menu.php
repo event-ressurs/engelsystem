@@ -86,7 +86,7 @@ function make_navigation()
         'news'           => __('News'),
         'user_meetings'  => __('Meetings'),
         'user_shifts'    => __('Shifts'),
-        'angeltypes'     => __('Angeltypes'),
+        'angeltypes'     => __('Usertypes'),
         // 'user_questions' => __('Ask the Heaven'),
     ];
 
@@ -100,10 +100,10 @@ function make_navigation()
 
     $admin_menu = [];
     $admin_pages = [
-        'admin_arrive'       => __('Arrived angels'),
-        'admin_active'       => __('Active angels'),
-        'admin_user'         => __('All Angels'),
-        'admin_free'         => __('Free angels'),
+        'admin_arrive'       => __('Arrived Users'),
+        'admin_active'       => __('Active Users'),
+        'admin_user'         => __('All Users'),
+        'admin_free'         => __('Free Users'),
         'admin_questions'    => __('Answer questions'),
         'shifttypes'         => __('Shifttypes'),
         'admin_shifts'       => __('Create shifts'),
