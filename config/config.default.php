@@ -8,7 +8,7 @@ return [
         'host'     => env('MYSQL_HOST', (env('CI', false) ? 'mariadb' : 'localhost')),
         'database' => env('MYSQL_DATABASE', 'engelsystem'),
         'username' => env('MYSQL_USER', 'root'),
-        'password' => env('MYSQL_PASSWORD', ''),
+        'password' => env('MYSQL_PASSWORD', 'Herren1322!'),
     ],
 
     // For accessing stats
@@ -32,9 +32,6 @@ return [
         'Contact' => env('CONTACT_EMAIL', 'mailto:ticket@c3heaven.de'),
     ],
 
-    // Link to documentation/help
-    'documentation_url'       => 'https://engelsystem.de/doc/',
-
     // Email config
     'email'                   => [
         // Can be mail, smtp, sendmail or log
@@ -42,12 +39,12 @@ return [
         'from'   => [
             // From address of all emails
             'address' => env('MAIL_FROM_ADDRESS', 'noreply@engelsystem.de'),
-            'name'    => env('MAIL_FROM_NAME', env('APP_NAME', 'Engelsystem')),
+            'name'    => env('MAIL_FROM_NAME', env('APP_NAME', 'Engelsystem'))
         ],
 
         'host'       => env('MAIL_HOST', 'localhost'),
         'port'       => env('MAIL_PORT', 587),
-        // Transport encryption like tls (for starttls) or ssl
+        // Transport encryption like tls
         'encryption' => env('MAIL_ENCRYPTION', null),
         'username'   => env('MAIL_USERNAME'),
         'password'   => env('MAIL_PASSWORD'),
@@ -72,25 +69,18 @@ return [
     // Rewrite URLs with mod_rewrite
     'rewrite_urls'            => true,
 
-    // Redirect to this site after logging in or when pressing the top-left button
+     // Redirect to this site after logging in or when pressing the top-left button
     // Must be one of news, user_meetings, user_shifts, angeltypes, user_questions
-    'home_site'               => 'news',
+    'home_site'               => 'user_shifts',
 
     // Number of News shown on one site
-    'display_news'            => 10,
+    'display_news'            => 6,
 
     // Users are able to sign up
-    'registration_enabled'    => (bool)env('REGISTRATION_ENABLED', true),
+    'registration_enabled'    => (bool)env('REGISTRATION_ENABLED', false),
 
     // Only arrived angels can sign up for shifts
     'signup_requires_arrival' => false,
-
-    // Whether newly-registered user should automatically be marked as arrived
-    'autoarrive'              => false,
-
-    // Only allow shift signup this number of hours in advance
-    // Setting this to 0 disables the feature
-    'signup_advance_hours'    => 0,
 
     // Number of hours that an angel has to sign out own shifts
     'last_unsubscribe'        => 3,
@@ -106,12 +96,6 @@ return [
     // The minimum length for passwords
     'min_password_length'     => 8,
 
-    // Whether the DECT field should be enabled
-    'enable_dect'             => true,
-
-    // Enables the planned arrival/leave date
-    'enable_planned_arrival'  => true,
-
     // Enables the T-Shirt configuration on signup and profile
     'enable_tshirt_size'      => true,
 
@@ -119,7 +103,7 @@ return [
     'max_freeloadable_shifts' => 2,
 
     // Local timezone
-    'timezone'                => env('TIMEZONE', ini_get('date.timezone') ?: 'Europe/Berlin'),
+    'timezone'                => env('TIMEZONE', 'Europe/Berlin'),
 
     // Multiply 'night shifts' and freeloaded shifts (start or end between 2 and 6 exclusive) by 2
     'night_shifts'            => [
@@ -138,11 +122,11 @@ return [
     // Available locales in /locale/
     'locales'                 => [
         'de_DE.UTF-8' => 'Deutsch',
-        'en_US.UTF-8' => 'English',
+        'en_GB.UTF-8' => 'English',
     ],
 
     // The default locale to use
-    'default_locale'          => env('DEFAULT_LOCALE', 'en_US.UTF-8'),
+    'default_locale'          => env('DEFAULT_LOCALE', 'en_GB.UTF-8'),
 
     // Available T-Shirt sizes, set value to null if not available
     'tshirt_sizes'            => [
