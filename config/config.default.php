@@ -1,4 +1,3 @@
-
 <?php
 // To change settings create a config.php
 return [
@@ -91,8 +90,8 @@ return [
     'enable_tshirt_size'      => true,
     //
 
-Cosmin Victor Celea, [11.07.19 16:12]
-Number of shifts to freeload until angel is locked for shift signup.
+
+    //Number of shifts to freeload until angel is locked for shift signup.
     'max_freeloadable_shifts' => 2,
     // Local timezone
     'timezone'                => env('TIMEZONE', ini_get('date.timezone') ?: 'Europe/Berlin'),
