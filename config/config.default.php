@@ -74,13 +74,13 @@ return [
 
     // Redirect to this site after logging in or when pressing the top-left button
     // Must be one of news, user_meetings, user_shifts, angeltypes, user_questions
-    'home_site'               => 'news',
+    'home_site'               => 'user_shifts',
 
     // Number of News shown on one site
     'display_news'            => 10,
 
     // Users are able to sign up
-    'registration_enabled'    => (bool)env('REGISTRATION_ENABLED', true),
+    'registration_enabled'    => (bool)env('REGISTRATION_ENABLED', false),
 
     // Only arrived angels can sign up for shifts
     'signup_requires_arrival' => false,
@@ -138,11 +138,11 @@ return [
     // Available locales in /locale/
     'locales'                 => [
         'de_DE.UTF-8' => 'Deutsch',
-        'en_US.UTF-8' => 'English',
+        'en_GB.UTF-8' => 'English',
     ],
 
     // The default locale to use
-    'default_locale'          => env('DEFAULT_LOCALE', 'en_US.UTF-8'),
+    'default_locale'          => env('DEFAULT_LOCALE', 'en_GB.UTF-8'),
 
     // Available T-Shirt sizes, set value to null if not available
     'tshirt_sizes'            => [
