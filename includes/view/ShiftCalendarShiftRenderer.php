@@ -40,8 +40,8 @@ class ShiftCalendarShiftRenderer
             $blocks,
             div(
                 'shift panel panel-' . $class . '" '
-                . 'style="height: '
-                . ($blocks * ShiftCalendarRenderer::BLOCK_HEIGHT - ShiftCalendarRenderer::MARGIN)
+                . 'style="height:50 '
+                // . ($blocks * ShiftCalendarRenderer::BLOCK_HEIGHT - ShiftCalendarRenderer::MARGIN)
                 . 'px"',
                 [
                     $this->renderShiftHead($shift, $class),
@@ -53,7 +53,7 @@ class ShiftCalendarShiftRenderer
                         ])
                     ]),
                     $shifts_row,
-                    div('shift-spacer')
+                    // div('shift-spacer')
                 ]
             )
         ];
@@ -271,7 +271,7 @@ class ShiftCalendarShiftRenderer
                     )
                 ]) . '</div>';
         }
-        $shift_heading = date('H:i', $shift['start']) . ' &dash; '
+        $shift_heading = date('l jS \of F Y h:i', $shift['start']) . ' &dash; '
             . date('H:i', $shift['end']) . ' &mdash; '
             . $shift['name'];
         return div('panel-heading', [
