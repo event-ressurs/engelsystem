@@ -111,7 +111,7 @@ function user_messages()
 
         return page_with_title(messages_title(), [
             msg(),
-            sprintf(__('Hello %s, here can you leave messages for other angels'), User_Nick_render($user)),
+            sprintf(__('Hello %s, here can you leave messages for other users'), User_Nick_render($user)),
             form([
                 table([
                     'new'       => __('New'),

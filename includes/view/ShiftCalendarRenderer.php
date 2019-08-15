@@ -146,7 +146,7 @@ class ShiftCalendarRenderer
             return info(__('No shifts found.'), true);
         }
         return div('shift-calendar', [
-                $this->renderTimeLane(),
+                // $this->renderTimeLane(),
                 $this->renderShiftLanes()
             ]) . $this->renderLegend();
     }
@@ -182,7 +182,7 @@ class ShiftCalendarRenderer
 
         foreach ($lane->getShifts() as $shift) {
             while ($rendered_until + ShiftCalendarRenderer::SECONDS_PER_ROW <= $shift['start']) {
-                $html .= $this->renderTick($rendered_until);
+                // $html .= $this->renderTick($rendered_until);
                 $rendered_until += ShiftCalendarRenderer::SECONDS_PER_ROW;
             }
 
@@ -196,10 +196,10 @@ class ShiftCalendarRenderer
             $rendered_until += $shift_height * ShiftCalendarRenderer::SECONDS_PER_ROW;
         }
 
-        while ($rendered_until < $this->getLastBlockEndTime()) {
-            $html .= $this->renderTick($rendered_until);
-            $rendered_until += ShiftCalendarRenderer::SECONDS_PER_ROW;
-        }
+        // while ($rendered_until < $this->getLastBlockEndTime()) {
+        //     $html .= $this->renderTick($rendered_until);
+        //     $rendered_until += ShiftCalendarRenderer::SECONDS_PER_ROW;
+        // }
 
         return div('lane', [
             div('header', $lane->getHeader()),

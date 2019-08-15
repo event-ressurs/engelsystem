@@ -376,7 +376,7 @@ function admin_shifts()
             engelsystem_log('Shift needs following angel types: ' . join(', ', $needed_angel_types_info));
         }
 
-        success('Schichten angelegt.');
+        success('Shift createad!');
         redirect(page_link_to('admin_shifts'));
     } else {
         $session->remove('admin_shifts_shifts');
@@ -435,13 +435,13 @@ function admin_shifts()
                     form_info(__('Needed angels'), ''),
                     form_radio(
                         'angelmode',
-                        __('Take needed angels from room settings'),
+                        __('Take needed users from room settings'),
                         $angelmode == 'location',
                         'location'
                     ),
                     form_radio(
                         'angelmode',
-                        __('The following angels are needed'),
+                        __('The following users are needed'),
                         $angelmode == 'manually',
                         'manually'
                     ),

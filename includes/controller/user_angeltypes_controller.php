@@ -55,7 +55,7 @@ function user_angeltypes_delete_all_controller()
     }
 
     if (!User_is_AngelType_supporter(auth()->user(), $angeltype)) {
-        error(__('You are not allowed to delete all users for this angeltype.'));
+        error(__('You are not allowed to delete all users for this usertype.'));
         redirect(page_link_to('angeltypes'));
     }
 
@@ -95,7 +95,7 @@ function user_angeltypes_confirm_all_controller()
     }
 
     if (!auth()->can('admin_user_angeltypes') && !User_is_AngelType_supporter($user, $angeltype)) {
-        error(__('You are not allowed to confirm all users for this angeltype.'));
+        error(__('You are not allowed to confirm all users for this usertypes.'));
         redirect(page_link_to('angeltypes'));
     }
 
