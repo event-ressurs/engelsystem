@@ -28,6 +28,8 @@ function admin_shifts()
     $change_hours = [];
     $title = '';
     $shifttype_id = null;
+    // When true: creates a shift beginning at the last shift change hour and ending at the first shift change hour
+    $shift_over_midnight = true;
 
     // Locations laden
     $rooms = Rooms();
@@ -127,6 +129,8 @@ function admin_shifts()
                     $valid = false;
                     error(__('Please split the shift-change hours by colons.'));
                 }
+                $shift_over_midnight = $request->has('shift_over_midnight') 
+                    && $request->input('shift_over_midnight') != 'false';
             }
         } else {
             $valid = false;
@@ -213,23 +217,25 @@ function admin_shifts()
                     $shift_start = $shift_end;
                 } while ($shift_end < $end);
             } elseif ($mode == 'variable') {
+                // Fehlende Minutenangaben ergänzen
                 array_walk($change_hours, function (&$value) {
                     if (!preg_match('/^\d{1,2}:\d{2}$/', $value)) {
                         $value .= ':00';
                     }
                 });
 
+                // Chronologisch absteigend sortieren (WHY???)
                 usort($change_hours, function ($a, $b) {
                     return str_replace(':', '', $a) > str_replace(':', '', $b) ? -1 : 1;
                 });
 
+                // Start-Tag
                 $day = parse_date('Y-m-d H:i', date('Y-m-d', $start) . ' 00:00');
+
                 $change_index = 0;
                 // Ersten/nächsten passenden Schichtwechsel suchen
                 foreach ($change_hours as $i => $change_time) {
-                    $change_time = explode(':', $change_time);
-                    $change_hour = $change_time[0];
-                    $change_minute = $change_time[1];
+                    list($change_hour, $change_minute) = explode(':', $change_time);
 
                     $shift_end = $day + $change_hour * 60 * 60 + $change_minute * 60;
                     if ($start < $shift_end) {
@@ -247,10 +253,7 @@ function admin_shifts()
                 do {
                     $day = parse_date('Y-m-d H:i', date('Y-m-d', $shift_start) . ' 00:00');
 
-                    $change_time = $change_hours[$change_index];
-                    $change_time = explode(':', $change_time);
-                    $change_hour = $change_time[0];
-                    $change_minute = $change_time[1];
+                    list($change_hour, $change_minute) = explode(':', $change_hours[$change_index]);
 
                     $shift_end = $day + $change_hour * 60 * 60 + $change_minute * 60;
 
@@ -259,18 +262,26 @@ function admin_shifts()
                     }
                     if ($shift_start >= $shift_end) {
                         $shift_end += 24 * 60 * 60;
+                        if ($shift_end > $end) {
+                            $shift_end = $end;
+                        }
                     }
 
-                    $shifts[] = [
-                        'start'        => $shift_start,
-                        'end'          => $shift_end,
-                        'RID'          => $rid,
-                        'title'        => $title,
-                        'shifttype_id' => $shifttype_id
-                    ];
+                    if($shift_over_midnight || $day == parse_date('Y-m-d H:i', date('Y-m-d', $shift_end) . ' 00:00')) {
+                        $shifts[] = [
+                            'start'        => $shift_start,
+                            'end'          => $shift_end,
+                            'RID'          => $rid,
+                            'title'        => $title,
+                            'shifttype_id' => $shifttype_id
+                        ];
+                    }
 
                     $shift_start = $shift_end;
-                    $change_index = ($change_index + count($change_hours) - 1) % count($change_hours);
+                    $change_index--;
+                    if($change_index < 0) {
+                        $change_index = count($change_hours) - 1;
+                    }
                 } while ($shift_end < $end);
             }
 
@@ -318,13 +329,14 @@ function admin_shifts()
                     form_hidden('length', $length),
                     form_hidden('change_hours', implode(', ', $change_hours)),
                     form_hidden('angelmode', $angelmode),
-                    form_submit('back', __('back')),
+                    form_hidden('shift_over_midnight', $shift_over_midnight ? 'true' : 'false'),
+                    form_submit('back', glyph('menu-left') . __('back')),
                     table([
                         'timeslot'      => __('Time and location'),
                         'title'         => __('Type and title'),
                         'needed_angels' => __('Needed angels')
                     ], $shifts_table),
-                    form_submit('submit', __('Save'))
+                    form_submit('submit', glyph('floppy-disk') . __('Save'))
                 ])
             ]);
         }
@@ -427,8 +439,13 @@ function admin_shifts()
                         'change_hours',
                         __('Shift change hours'),
                         $request->has('change_hours')
-                            ? $request->input('input')
+                            ? $request->input('change_hours')
                             : '00, 04, 08, 10, 12, 14, 16, 18, 20, 22'
+                    ),
+                    form_checkbox(
+                        'shift_over_midnight', 
+                        __('Create a shift over midnight.'), 
+                        $shift_over_midnight
                     )
                 ]),
                 div('col-md-6', [
@@ -450,7 +467,7 @@ function admin_shifts()
                     ])
                 ])
             ]),
-            form_submit('preview', __('Preview'))
+            form_submit('preview', glyph('search') . __('Preview'))
         ])
     ]);
 }
