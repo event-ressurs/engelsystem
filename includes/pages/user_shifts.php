@@ -59,7 +59,8 @@ function update_ShiftsFilter_timerange(ShiftsFilter $shiftsFilter, $days)
 function update_ShiftsFilter(ShiftsFilter $shiftsFilter, $user_shifts_admin, $days)
 {
     $shiftsFilter->setUserShiftsAdmin($user_shifts_admin);
-    $shiftsFilter->setFilled(check_request_int_array('filled', $shiftsFilter->getFilled()));
+    //$shiftsFilter->setFilled(check_request_int_array('filled', $shiftsFilter->getFilled()));
+    $shiftsFilter->setFilled([0,1]);
     $shiftsFilter->setRooms(check_request_int_array('rooms', $shiftsFilter->getRooms()));
     $shiftsFilter->setTypes(check_request_int_array('types', $shiftsFilter->getTypes()));
     update_ShiftsFilter_timerange($shiftsFilter, $days);
