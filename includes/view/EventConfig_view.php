@@ -25,7 +25,7 @@ function EventConfig_countdown_page()
     $elements[] = div('col-sm-12 text-center', [
         heading(sprintf(
             __('Welcome to the %s!'),
-            $name . ' <span class="icon-icon_angel"></span> ' . Str::upper(config('app_name'))
+            $name . ' <span class="glyphicon glyphicon-user"></span> ' . Str::upper(config('app_name'))
         ), 2)
     ]);
 

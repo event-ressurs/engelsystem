@@ -607,7 +607,7 @@ function User_view(
     }
 
     return page_with_title(
-        '<span class="icon-icon_angel"></span> '
+        '<span class="glyphicon glyphicon-user"></span> '
         . htmlspecialchars($user_source->name)
         . ' <small>' . $user_name . '</small>',
         [
@@ -881,7 +881,7 @@ function User_Nick_render($user, $plain = false)
     }
 
     return render_profile_link(
-        '<span class="icon-icon_angel"></span> ' . htmlspecialchars($user->name) . '</a>',
+        '<span class="glyphicon glyphicon-user"></span> ' . htmlspecialchars($user->name) . '</a>',
         $user->id,
         ($user->state->arrived ? '' : 'text-muted')
     );
