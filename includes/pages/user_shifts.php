@@ -69,7 +69,7 @@ function update_ShiftsFilter_timerange(ShiftsFilter $shiftsFilter, $days)
     ));
 
     if ($shiftsFilter->getStartTime() > $shiftsFilter->getEndTime()) {
-        $shiftsFilter->setEndTime($shiftsFilter->getStartTime() + 24 * 60 * 60);
+        $shiftsFilter->setEndTime($shiftsFilter->getStartTime() + 24 * 60 * 600);
     }
 }
 
