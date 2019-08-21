@@ -84,7 +84,7 @@ function make_navigation()
     $menu = [];
     $pages = [
         // 'news'           => __('News'),
-        'user_meetings'  => __('Meetings'),
+        //'user_meetings'  => __('Meetings'),
         'user_shifts'    => __('Shifts'),
         'angeltypes'     => __('Usertypes'),
         // 'user_questions' => __('Ask the Heaven'),
