@@ -30,3 +30,22 @@ msgstr "The password is required."
 
 msgid "validation.login.required"
 msgstr "The login name is required."
+
+#: includes/view/ShiftCalendarShiftRenderer.php:134
+msgid "Add more angels"
+msgstr "Add more helpers"
+
+#: includes/controller/shifts_controller.php:134
+#, php-format
+msgid "Please check your input for needed angels of type %s."
+msgstr "Please check your input for needed helpers of type %s."
+
+#: includes/controller/shifts_controller.php:191
+#: includes/pages/admin_shifts.php:325 includes/pages/admin_shifts.php:435
+#: includes/view/Shifts_view.php:147
+msgid "Needed angels"
+msgstr "Needed helpers"
+
+#: includes/view/ShiftCalendarRenderer.php:314
+msgid "Other angeltype needed / collides with my shifts"
+msgstr "Other helper type needed / collides with my shifts"
