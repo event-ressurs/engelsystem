@@ -196,8 +196,12 @@ function user_news_comments()
 function user_news()
 {
     $user = auth()->user();
+	redirect(page_link_to('user-shifts'));
+	return true;
+
     $display_news = config('display_news');
-    $request = request();
+	$request = request();
+
 
     $html = '<div class="col-md-12"><h1>' . news_title() . '</h1>' . msg();
 
