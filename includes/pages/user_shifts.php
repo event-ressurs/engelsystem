@@ -45,32 +45,8 @@ function user_shifts()
  */
 function update_ShiftsFilter_timerange(ShiftsFilter $shiftsFilter, $days)
 {
-    $start_time = $shiftsFilter->getStartTime();
-    if (is_null($start_time)) {
-        $start_time = time();
-    }
-
-    $end_time = $shiftsFilter->getEndTime();
-    if ($end_time == null) {
-        $end_time = $start_time + 24 * 60 * 600;
-    }
-
-    $shiftsFilter->setStartTime(check_request_datetime(
-        'start_day',
-        'start_time',
-        $days,
-        $start_time
-    ));
-    $shiftsFilter->setEndTime(check_request_datetime(
-        'end_day',
-        'end_time',
-        $days,
-        $end_time
-    ));
-
-    if ($shiftsFilter->getStartTime() > $shiftsFilter->getEndTime()) {
-        $shiftsFilter->setEndTime($shiftsFilter->getStartTime() + 24 * 60 * 600);
-    }
+	$shiftsFilter->setStartTime(time() - 24 * 60 * 60);
+	$shiftsFilter->setEndTime(time() + 24 * 60 * 60 * 600);
 }
 
 /**
