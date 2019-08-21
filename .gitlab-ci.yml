@@ -12,16 +12,15 @@ variables:
   DOCROOT: /var/www/
 
 stages:
-  - build-frontend
   - build
   - test
   - release
   - deploy
 
 .docker_template: &docker_definition
-  image: docker:latest
+  image: docker:18
   services:
-    - docker:dind
+    - docker:18-dind
   tags:
     - dind
   before_script:
@@ -29,16 +28,26 @@ stages:
 
 build-image.nginx:
   <<: *docker_definition
-  stage: build-frontend
+  stage: build
+  artifacts:
+    name: "${CI_JOB_NAME}_${CI_JOB_ID}_assets"
+    expire_in: 1 day
+    paths:
+      - ./public/assets
   script:
     - docker build --pull -t "${TEST_IMAGE}-nginx" -f contrib/nginx/Dockerfile .
     - docker push "${TEST_IMAGE}-nginx"
+    - instance=$(docker create "${TEST_IMAGE}-nginx")
+    - docker cp "${instance}:/var/www/public/assets" public/
+    - docker rm "${instance}"
 
 build-image:
   <<: *docker_definition
   stage: build
   script:
-    - docker build --pull --build-arg NGINX_IMAGE="${TEST_IMAGE}-nginx" -t "${TEST_IMAGE}" -f contrib/Dockerfile .
+    - apk -q add git
+    - VERSION="$(git describe --abbrev=0 --tags)-${CI_COMMIT_REF_NAME}+${CI_PIPELINE_ID}.${CI_COMMIT_SHORT_SHA}"
+    - docker build --pull --build-arg VERSION="${VERSION}" -t "${TEST_IMAGE}" -f contrib/Dockerfile .
     - docker push "${TEST_IMAGE}"
 
 test:
@@ -57,7 +66,7 @@ test:
       junit: ./unittests.xml
   coverage: '/^\s*Lines:\s*(\d+(?:\.\d+)?%)/'
   before_script:
-    - apk add ${PHPIZE_DEPS} && pecl install xdebug-beta && docker-php-ext-enable xdebug
+    - apk add ${PHPIZE_DEPS} && pecl install xdebug && docker-php-ext-enable xdebug
     - curl -sS https://getcomposer.org/installer | php -- --no-ansi --install-dir /usr/local/bin/ --filename composer
     - cp -R tests/ phpunit.xml "${DOCROOT}"
     - HOMEDIR=$(pwd)
@@ -100,6 +109,7 @@ release-image.nginx:
     mkdir -p ~/.ssh
     echo "${SSH_PRIVATE_KEY}" | sed -e 's/\r//g' > ~/.ssh/id_ed25519
     chmod 600 ~/.ssh/id_ed25519
+    rsync -vAax public/assets ${DOCROOT}/public/
     cd "${DOCROOT}"
 
 build-release-file:
@@ -111,7 +121,8 @@ build-release-file:
     paths:
       - ./release/
   script:
-    - rsync -vAax "${DOCROOT}" release/
+    - rsync -vAax "${DOCROOT}" "${DOCROOT}/.babelrc" "${DOCROOT}/.browserslistrc" release/
+    - rsync -vAax public/assets release/public/
 
 deploy-staging:
   <<: *deploy_definition

@@ -80,7 +80,7 @@ function Shift_signup_button_render($shift, $angeltype, $user_angeltype = null)
         $user_angeltype = UserAngelType_by_User_and_AngelType(auth()->user()->id, $angeltype);
     }
 
-    if ($angeltype['shift_signup_state']->isSignupAllowed()) {
+    if (isset($angeltype['shift_signup_state']) && $angeltype['shift_signup_state']->isSignupAllowed()) {
         return button(shift_entry_create_link($shift, $angeltype), __('Sign up'));
     } elseif (empty($user_angeltype)) {
         return button(
@@ -197,7 +197,7 @@ function Shift_view_render_needed_angeltype($needed_angeltype, $angeltypes, $shi
 
     $needed_angels .= '<h3>' . AngelType_name_render($angeltype) . '</h3>';
     $bar_max = max($needed_angeltype['count'] * 10, $needed_angeltype['taken'] * 10, 10);
-    $bar_value = max(1, $needed_angeltype['taken'] * 10);
+    $bar_value = max($bar_max/10, $needed_angeltype['taken'] * 10);
     $needed_angels .= progress_bar(
         0,
         $bar_max,

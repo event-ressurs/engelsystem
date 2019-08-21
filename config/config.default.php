@@ -59,12 +59,16 @@ return [
 
     // Available themes
     'available_themes'        => [
+        '10' => 'Engelsystem cccamp19 green (2019)',
+        '9' => 'Engelsystem cccamp19 yellow (2019)',
+        '8' => 'Engelsystem cccamp19 blue (2019)',
         '7' => 'Engelsystem 35c3 dark (2018)',
         '6' => 'Engelsystem 34c3 dark (2017)',
         '5' => 'Engelsystem 34c3 light (2017)',
         '4' => 'Engelsystem 33c3 (2016)',
         '3' => 'Engelsystem 32c3 (2015)',
         '2' => 'Engelsystem cccamp15',
+        '11' => 'Engelsystem high contrast',
         '0' => 'Engelsystem light',
         '1' => 'Engelsystem dark',
     ],
@@ -95,13 +99,10 @@ return [
     // Number of hours that an angel has to sign out own shifts
     'last_unsubscribe'        => 3,
 
-    // Define the algorithm to use for `crypt()` of passwords
+    // Define the algorithm to use for `password_verify()`
     // If the user uses an old algorithm the password will be converted to the new format
-    //  MD5         '$1'
-    //  Blowfish    '$2y$13'
-    //  SHA-256     '$5$rounds=5000'
-    //  SHA-512     '$6$rounds=5000'
-    'crypt_alg'               => '$6$rounds=5000',
+    // See https://secure.php.net/manual/en/password.constants.php for a complete list
+    'password_algorithm'      => PASSWORD_DEFAULT,
 
     // The minimum length for passwords
     'min_password_length'     => 8,
@@ -137,12 +138,12 @@ return [
 
     // Available locales in /locale/
     'locales'                 => [
-        'de_DE.UTF-8' => 'Deutsch',
-        'en_GB.UTF-8' => 'English',
+        'de_DE' => 'Deutsch',
+        'en_US' => 'English',
     ],
 
     // The default locale to use
-    'default_locale'          => env('DEFAULT_LOCALE', 'en_GB.UTF-8'),
+    'default_locale'          => env('DEFAULT_LOCALE', 'en_US'),
 
     // Available T-Shirt sizes, set value to null if not available
     'tshirt_sizes'            => [

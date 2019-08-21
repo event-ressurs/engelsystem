@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const nodeEnv = (process.env.NODE_ENV || 'development').trim();
 
 // eslint-disable-next-line
@@ -23,7 +24,7 @@ const plugins = [
 
 
 const themeEntries = {};
-for (let i = 0; i < 8; i++) {
+for (let i = 0; i < 12; i++) {
   themeEntries[`theme${i}`] = `./resources/assets/themes/theme${i}.less`;
 }
 
@@ -43,7 +44,7 @@ module.exports = {
     publicPath: '',
   },
   optimization: {
-    minimizer: __DEV__ ? [] : [new OptimizeCSSAssetsPlugin({})],
+    minimizer: __DEV__ ? [] : [new OptimizeCSSAssetsPlugin({}), new TerserPlugin()],
   },
   module: {
     rules: [
