@@ -92,13 +92,13 @@ class ShiftCalendarRenderer
             foreach ($lanes[$room_id] as $lane) {
                 /** @var ShiftCalendarLane $lane */
                 if ($lane->shiftFits($shift)) {
-                    $lane->addShift($shift);
-                    $shift_added = true;
-                    break;
-                }
+					$lane->addShift($shift);
+					$shift_added = true;
+					break;
+				}
             }
             // If all lanes for this room are busy, create a new lane and add shift to it
-            if ($shift_added == false) {
+			if ($shift_added == false) {
                 $newLane = new ShiftCalendarLane($header, $this->getFirstBlockStartTime(), $this->getBlocksPerSlot());
                 $newLane->addShift($shift);
                 $lanes[$room_id][] = $newLane;

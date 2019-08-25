@@ -61,6 +61,8 @@ class ShiftCalendarLane
      */
     public function shiftFits($newShift)
     {
+		return true;
+
         foreach ($this->shifts as $laneShift) {
             if (!($newShift['start'] >= $laneShift['end'] || $newShift['end'] <= $laneShift['start'])) {
                 return false;
