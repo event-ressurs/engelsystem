@@ -271,7 +271,7 @@ class ShiftCalendarShiftRenderer
                     )
                 ]) . '</div>';
         }
-        $shift_heading = date('l jS \of F Y h:i', $shift['start']) . ' &dash; '
+        $shift_heading = date('l jS \of F Y H:i', $shift['start']) . ' &dash; '
             . date('H:i', $shift['end']) . ' &mdash; '
             . $shift['name'];
         return div('panel-heading', [
