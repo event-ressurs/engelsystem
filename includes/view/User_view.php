@@ -881,7 +881,7 @@ function User_Nick_render($user, $plain = false)
     }
 
     return render_profile_link(
-        '<span class="glyphicon glyphicon-user"></span> ' . htmlspecialchars($user->name) . '</a>',
+        '<span class="glyphicon glyphicon-user"></span> ' . htmlspecialchars($user->personalData["first_name"]). ' '. htmlspecialchars($user->personalData["last_name"])  . '</a>',
         $user->id,
         ($user->state->arrived ? '' : 'text-muted')
     );

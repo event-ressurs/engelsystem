@@ -162,12 +162,13 @@ function Shift_view($shift, $shifttype, $room, $angeltypes_source, ShiftSignupSt
 
     if ($shift_admin) {
         $content[] = Shift_editor_info_render($shift);
-    }
+	}
 
     return page_with_title(
         $shift['name'] . ' <small class="moment-countdown" data-timestamp="' . $shift['start'] . '">%c</small>',
         $content
-    );
+	);
+
 }
 
 /**
@@ -213,8 +214,9 @@ function Shift_view_render_needed_angeltype($needed_angeltype, $angeltypes, $shi
         }
     }
 
-    $needed_angels .= join(', ', $angels);
-    $needed_angels .= '</div>';
+	$needed_angels .= '<ul><li>';
+    $needed_angels .= join('</li><li>', $angels);
+    $needed_angels .= '</li><ul></div>';
 
     return $needed_angels;
 }
